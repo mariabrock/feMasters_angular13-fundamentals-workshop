@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular13-fundamentals-workshop';
+  links = [
+    { path: '/home', icon: 'home', title: 'Home' },
+    { path: '/courses', icon: 'view_list', title: 'Courses' },
+  ];
+
+  constructor() {}
 }
