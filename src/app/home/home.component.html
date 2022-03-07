@@ -3,6 +3,29 @@
     <mat-card-title> Course Outline </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <!-- LESSON LIST -->
+    <mat-list>
+      <mat-list-item
+      *ngFor="let lesson of courseLessons"
+      (click)="selectLesson(lesson)"
+      >
+    <h3 matLine>{{ lesson.title | titlecase }}</h3>
+
+  </mat-list-item>
+</mat-list>
+<hr>
+<pre>{{selectedLesson | json }}</pre>
   </mat-card-content>
 </mat-card>
+
+<!-- CHALLENGES -->
+<!-- In the src/app/courses/courses.component.ts file, complete the following challenges.
+
+Display courses using ngFor
+Add event handler to select course
+Display raw JSON of selected course
+
+In the src/app/home/home.component.html file, complete the following challenges:
+
+Display lessons using ngFor
+Add event handler to select lesson
+Display raw JSON of selected lesson-->
