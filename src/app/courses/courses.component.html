@@ -34,25 +34,70 @@
           <mat-card-header>
               <mat-card-title>
                   <span *ngIf="selectedCourse?.id; else elseBlock">
-                    {{selectedCourse.title | titlecase }}
+                    {{ originalTitle | titlecase }}
                   </span>
                   <ng-template #elseBlock>Select a Course</ng-template>
               </mat-card-title>
           </mat-card-header>
-          <mat-card-content>
 
-            <pre>{{selectedCourse | json }}</pre>
+          <form #form="ngForm" (submit)="saveCourse(selectedCourse)">
+          <mat-card-content>
+            <mat-form-field class="full-width">
+                <input
+                matInput
+                placeholder="Title"
+                [(ngModel)]="selectedCourse.title"
+                name="title"
+                required
+                type="text"
+                >
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <input
+                matInput
+                placeholder="Description"
+                [(ngModel)]="selectedCourse.description"
+                name="description"
+                type="text"
+                >
+            </mat-form-field>
+            <section class="full-width">
+                <h4>{{selectedCourse.percentComplete}}% Complete</h4>
+                <mat-slider 
+                    class="full-width"
+                    [(ngModel)]="selectedCourse.percentComplete"
+                    tickInterval="1"
+                    step="9" min="0" max="100"
+                    thumbLabel
+                    name="Percent Complete"
+                    role="slider"
+                ></mat-slider>
+            </section>
+            <section class="full-width">
+                    <mat-checkbox 
+                        class="favorite"
+                        [(ngModel)]="selectedCourse.favorite"
+                        name="favorite">
+                      Favorite
+                    </mat-checkbox>
+            </section>
+ 
           </mat-card-content>
           <mat-card-actions>
-
-          <button type="button" mat-button (click)="selectCourse(null)">Cancel</button>
+            <button type="submit" [disabled]="form.invalid" mat-button color="primary">Save</button>
+            <button type="button" mat-button color="warn" (click)="reset()">Cancel</button>
 
           </mat-card-actions>
+        </form>
+        <hr>
+        <pre>{{form.value | json}}</pre>
+        <pre>{{form.valid | json}}</pre>
+    
       </mat-card>
   </div>
 </div>
 
-<!-- CHALLENGES -->
+<!-- CHALLENGES 01-->
 <!-- In the src/app/courses/courses.component.ts file, complete the following challenges.
 
 Display courses using ngFor
@@ -64,3 +109,13 @@ In the src/app/home/home.component.html file, complete the following challenges:
 Display lessons using ngFor
 Add event handler to select lesson
 Display raw JSON of selected lesson-->
+
+<!-- CHALLENGES 02-->
+<!-- In the src/app/courses/courses.component.ts file, complete the following challenges.
+
+Update the form to show percentComplete - https://material.angular.io/components/slider/overview
+Update the form to show favorite - https://material.angular.io/components/checkbox/overview
+
+BONUS: How can we edit a course without affecting the other representations?
+
+HINT: https://material.angular.io/components/categories -->
