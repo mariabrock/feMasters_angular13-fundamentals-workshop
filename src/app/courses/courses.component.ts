@@ -21,6 +21,7 @@ export class CoursesComponent implements OnInit {
   courses = [];
   selectedCourse = emptyCourse;
   originalTitle = '';
+  handleError: any;
 
   constructor(private coursesService: CoursesService) {}
 
@@ -29,19 +30,18 @@ export class CoursesComponent implements OnInit {
   }
 
   selectCourse(course) {
-    this.selectedCourse = {...course};
-    this.originalTitle = course.title;
+    this.selectedCourse = course;
   }
 
   fetchCourses() {
     this.coursesService.all()
-    .subscribe((result: any) => this.courses = result);
+      .subscribe((result:any) => this.courses = result)
   }
 
   saveCourse(course) {
     if(course.id) {
       this.updateCourse(course);
-    }else{
+    } else {
       this.createCourse(course);
     }
   }
@@ -55,15 +55,13 @@ export class CoursesComponent implements OnInit {
     this.coursesService.update(course)
     .subscribe(result => this.fetchCourses());
   }
-
+  
   deleteCourse(courseId) {
     console.log('DELETE COURSE', courseId);
   }
-
+  
   reset() {
     this.selectCourse({...emptyCourse});
   }
-
-  
-
 }
+  

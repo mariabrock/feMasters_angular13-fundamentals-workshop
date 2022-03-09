@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Course } from '../models/course';
 
 const BASE_URL = 'http://localhost:3000';
 
@@ -20,7 +19,6 @@ export class CoursesService {
     return this.http.get(this.getUrlWithID(id));
   }
   
-
   create(course) {
     return this.http.post(this.getUrl(), course);
   }
