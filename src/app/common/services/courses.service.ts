@@ -36,6 +36,6 @@ export class CoursesService {
   }
 
   private getUrlWithID (id) {
-    return `${this.getUrl}/${id}`;
+    return `${this.getUrl()}/${id}`;
   }
 }

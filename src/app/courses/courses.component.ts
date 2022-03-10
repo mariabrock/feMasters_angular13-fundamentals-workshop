@@ -48,12 +48,12 @@ export class CoursesComponent implements OnInit {
 
   createCourse(course) {
     this.coursesService.create(course)
-    .subscribe(result => this.fetchCourses());
+    .subscribe((result:any) => this.fetchCourses());
   }
 
   updateCourse(course) {
     this.coursesService.update(course)
-    .subscribe(result => this.fetchCourses());
+    .subscribe((result:any) => this.fetchCourses());
   }
   
   deleteCourse(courseId) {
