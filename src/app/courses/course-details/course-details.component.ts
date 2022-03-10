@@ -16,6 +16,6 @@ export class CourseDetailsComponent  {
   @Input() set course(value) {
     if(!value) return;
     this.currentCourse = {...value}
-    this.originalTitle = this. currentCourse.title;
+    this.originalTitle = this.currentCourse.title;
   }
 }

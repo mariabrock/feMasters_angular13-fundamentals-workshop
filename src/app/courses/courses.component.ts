@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Course } from '../common/models/course';
 import { CoursesService } from '../common/services/courses.service';
 
@@ -19,6 +20,7 @@ const emptyCourse: Course = {
 export class CoursesComponent implements OnInit {
 
   courses = [];
+  courses$: any;
   selectedCourse = emptyCourse;
   originalTitle = '';
   handleError: any;
@@ -34,8 +36,8 @@ export class CoursesComponent implements OnInit {
   }
 
   fetchCourses() {
-    this.coursesService.all()
-      .subscribe((result:any) => this.courses = result)
+    this.courses$ = this.coursesService.all();
+    // this allows me to not have to unpack the data inside this component
   }
 
   saveCourse(course) {
