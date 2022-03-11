@@ -1,16 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Course } from '../common/models/course';
-import { CoursesService } from '../common/services/courses.service';
-
-const emptyCourse: Course = {
-  id: null,
-  title: '',
-  description: '',
-  percentComplete: 0,
-  favorite: false
-
-}
+import { tap } from 'rxjs/operators';
+import { Course } from '../shared/interfaces/course.interface';
+import { CoursesService } from '../shared/services/courses/courses.service';
 
 @Component({
   selector: 'app-courses',
@@ -19,50 +11,61 @@ const emptyCourse: Course = {
 })
 export class CoursesComponent implements OnInit {
 
-  courses = [];
-  courses$: any;
-  selectedCourse = emptyCourse;
-  originalTitle = '';
-  handleError: any;
+  courses$: Observable<Course[]>;
+  selectedCourse: Course;
 
   constructor(private coursesService: CoursesService) {}
 
   ngOnInit(): void {
-    this.fetchCourses();
+    this.loadCourses(true);
+    this.resetCourse();
   }
 
-  selectCourse(course) {
+  selectCourse(course: Course) {
     this.selectedCourse = course;
   }
 
-  fetchCourses() {
-    this.courses$ = this.coursesService.all();
+  loadCourses(displayNotification: boolean) {
+    this.courses$ = this.coursesService.getAllCourses(displayNotification);
     // this allows me to not have to unpack the data inside this component
   }
 
-  saveCourse(course) {
+  saveCourse(course: Course) {
     if(course.id) {
       this.updateCourse(course);
     } else {
       this.createCourse(course);
     }
-  }
-
-  createCourse(course) {
-    this.coursesService.create(course)
-    .subscribe((result:any) => this.fetchCourses());
-  }
-
-  updateCourse(course) {
-    this.coursesService.update(course)
-    .subscribe((result:any) => this.fetchCourses());
+    this.resetCourse();
   }
   
-  deleteCourse(courseId) {
-    console.log('DELETE COURSE', courseId);
+  updateCourse(course: Course) {
+    this.coursesService.updateCourse(course).pipe(
+      tap(() => this.loadCourses(false))
+    ).subscribe();
+  }
+
+  createCourse(course: Course) {
+    this.coursesService.createCourse(course).pipe(
+      tap(() => this.loadCourses(false))
+    ).subscribe();
+  }
+
+  deleteCourse(id: any) {
+    this.coursesService.deleteCourse(id).pipe(
+      tap(() => this.loadCourses(false))
+    ).subscribe();
   }
   
-  reset() {
+  resetCourse() {
+    const emptyCourse: Course = {
+      id: null,
+      title: '',
+      description: '',
+      percentComplete: 0,
+      favorite: false
+    };
+
     this.selectCourse({...emptyCourse});
   }
 }

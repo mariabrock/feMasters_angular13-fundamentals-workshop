@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AdminPayrollComponent } from './examples/child-routes/admin/admin-payroll/admin-payroll.component';
-import { AdminVacationComponent } from './examples/child-routes/admin/admin-vacation/admin-vacation.component';
-import { AdminComponent } from './examples/child-routes/admin/admin.component';
+import { AdminPayrollComponent } from './examples/child-routes/admin-payroll/admin-payroll.component';
+import { AdminVacationComponent } from './examples/child-routes/admin-vacation/admin-vacation.component';
+import { AdminComponent } from './examples/child-routes/admin.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CourseDetailsComponent } from './courses/course-details/course-details.component';
@@ -26,6 +26,7 @@ import { CustomInputComponent } from './examples/custom-input/custom-input.compo
 import { CustomControlComponent } from './examples/custom-input/custom-control/custom-control.component';
 import { RouteParamsComponent } from './examples/route-params/route-params.component';
 import { ProtectedComponent } from './examples/protected/protected.component';
+import { RouterLink } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { ProtectedComponent } from './examples/protected/protected.component';
     FormsModule,
     MaterialModule,
     HttpClientModule,
+    RouterLink
   ],
   declarations: [
     AppComponent,
@@ -54,7 +56,7 @@ import { ProtectedComponent } from './examples/protected/protected.component';
     CustomInputComponent,
     CustomControlComponent,
     RouteParamsComponent,
-    ProtectedComponent,
+    ProtectedComponent
   ],
   providers: [AuthService, NotificationService],
   bootstrap: [AppComponent],
