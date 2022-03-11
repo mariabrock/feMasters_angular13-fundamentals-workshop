@@ -8,7 +8,7 @@
     </mat-card-title>
   </mat-card-header>
 
-  <form #form="ngForm" (submit)="saved.emit(currentCourse)">
+  <form #form="ngForm" (submit)="saveCourse(currentCourse)">
   <mat-card-content>
     <mat-form-field class="full-width">
       <input
@@ -16,31 +16,33 @@
       placeholder="Title"
       [(ngModel)]="currentCourse.title"
       name="title"
-      required
       type="text"
+      required
       >
     </mat-form-field>
     <mat-form-field class="full-width">
       <input
       matInput
-      placeholder="Description"
+      placeholder="Details"
       [(ngModel)]="currentCourse.description"
       name="description"
       type="text"
       >
     </mat-form-field>
     <section class="full-width">
-      <h4>{{currentCourse.percentComplete}}% Complete</h4>
+      <h4>{{ currentCourse.percentComplete }}% Complete</h4>
       <mat-slider 
           class="full-width"
-          [(ngModel)]="currentCourse.percentComplete"
           tickInterval="1"
           step="9" min="0" max="100"
           thumbLabel
-          name="Percent Complete"
           role="slider"
-      ></mat-slider>
+          name="Percent Complete"
+          [(ngModel)]="currentCourse.percentComplete"
+      >
+    </mat-slider>
     </section>
+
     <section class="full-width">
         <mat-checkbox 
             class="favorite"
@@ -49,16 +51,17 @@
           Favorite
         </mat-checkbox>
     </section>
-
   </mat-card-content>
-  <mat-card-actions>
-    <button type="submit" [disabled]="form.invalid" mat-button color="primary">Save</button>
-    <button type="button" mat-button color="warn" (click)="cancelled.emit()">Cancel</button>
 
+  <mat-card-actions>
+    <button 
+    type="submit"
+    [disabled]="form.invalid"
+    mat-button color="primary">Save</button>
+    <button 
+    type="button"
+    mat-button color="warn"
+    (click)="cancelled.emit()">Cancel</button>
   </mat-card-actions>
 </form>
-
-  <hr>
-  <pre>{{form.value | json}}</pre>
-  <pre>{{form.valid | json}}</pre>
 </mat-card>

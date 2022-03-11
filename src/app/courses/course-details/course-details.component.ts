@@ -1,21 +1,36 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Course } from 'src/app/common/models/course';
+import { Course } from 'src/app/shared/interfaces/course.interface';
 
 @Component({
   selector: 'app-course-details',
   templateUrl: './course-details.component.html',
   styleUrls: ['./course-details.component.scss']
 })
-export class CourseDetailsComponent  {
-  currentCourse: Course;
-  originalTitle = '';
+export class CourseDetailsComponent  implements OnInit{
+
+  // breaking the sharing portion of state
+  @Input() set selectedCourse(value: Course) {
+    if(value?.title) {
+      this.originalTitle = value.title;
+    }
+    this.currentCourse = Object.assign({}, value);
+  }
 
   @Output() saved = new EventEmitter();
   @Output() cancelled = new EventEmitter();
-  // breaking the sharing portion of state
-  @Input() set course(value) {
-    if(!value) return;
-    this.currentCourse = {...value}
-    this.originalTitle = this.currentCourse.title;
+
+  currentCourse: Course;
+  originalTitle: string;
+
+  constructor() {}
+
+  ngOnInit(): void {}
+  
+  saveCourse(course: Course) {
+    this.courseSaved.emit(course);
+  }
+
+  cancelCourse() {
+    this.courseCancelled.emit();
   }
 }
