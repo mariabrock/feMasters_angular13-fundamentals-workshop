@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Course } from '../../../../src/app/common/models/course';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Course } from 'src/app/shared/interfaces/course.interface';
 @Component({
   selector: 'app-courses-list',
   templateUrl: './courses-list.component.html',
@@ -7,6 +7,18 @@ import { Course } from '../../../../src/app/common/models/course';
 })
 export class CoursesListComponent {
   @Input() courses: Course[]= [];
-  @Output() selected = new EventEmitter();
-  @Output() deleted = new EventEmitter();
+  @Output() courseSelected = new EventEmitter<Course>();
+  @Output() courseDeleted = new EventEmitter<number>();
+
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  selectCourse(course: Course) {
+    this.courseSelected.emit(course);
+  }
+
+  deleteCourse(id: number) {
+    this.courseDeleted.emit(id);
+  }
 }
