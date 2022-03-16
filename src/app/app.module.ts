@@ -26,7 +26,6 @@ import { CustomInputComponent } from './examples/custom-input/custom-input.compo
 import { CustomControlComponent } from './examples/custom-input/custom-control/custom-control.component';
 import { RouteParamsComponent } from './examples/route-params/route-params.component';
 import { ProtectedComponent } from './examples/protected/protected.component';
-import { RouterLink } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -35,8 +34,7 @@ import { RouterLink } from '@angular/router';
     BrowserAnimationsModule,
     FormsModule,
     MaterialModule,
-    HttpClientModule,
-    RouterLink
+    HttpClientModule
   ],
   declarations: [
     AppComponent,

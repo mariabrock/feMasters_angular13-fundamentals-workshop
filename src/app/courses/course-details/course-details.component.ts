@@ -16,7 +16,7 @@ export class CourseDetailsComponent  implements OnInit{
     this.currentCourse = Object.assign({}, value);
   }
 
-  @Output() courseSaved = new EventEmitter<Course>;
+  @Output() courseSaved = new EventEmitter<Course>();
   @Output() courseCancelled = new EventEmitter();
 
   currentCourse: Course;
